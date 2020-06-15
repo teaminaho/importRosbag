@@ -28,7 +28,7 @@ http://docs.ros.org/api/sensor_msgs/html/msg/Image.html
 from tqdm import tqdm
 import numpy as np
 
-from .common import unpackRosString, unpackRosUint32, unpackRosUint8, unpackRosTimestamp
+from .common import unpackRosString, unpackRosUint32, unpackRosUint16, unpackRosUint8, unpackRosTimestamp
 
 
 def importTopic(msgs, **kwargs):
@@ -55,6 +55,7 @@ def importTopic(msgs, **kwargs):
         width, ptr = unpackRosUint32(data, ptr)
         fmtString, ptr = unpackRosString(data, ptr)
         isBigendian, ptr = unpackRosUint8(data, ptr)
+        #_, ptr = unpackRosUint16(data, ptr)
         if isBigendian:
             print('data is bigendian, but it doesn''t matter')
         step, ptr = unpackRosUint32(data, ptr)  # not used
@@ -66,6 +67,9 @@ def importTopic(msgs, **kwargs):
         # http://docs.ros.org/jade/api/sensor_msgs/html/image__encodings_8h_source.html
         if fmtString in ['mono8', '8UC1']:
             frameData = np.frombuffer(data[ptr:ptr+height*width], np.uint8)
+            depth = 1
+        elif fmtString in ['mono16', '16UC1']:
+            frameData = np.frombuffer(data[ptr:ptr+height*width*2], np.uint16)
             depth = 1
         elif fmtString == '32FC1':
             frameData = np.frombuffer(data[ptr:ptr+height*width*4], np.float32)
