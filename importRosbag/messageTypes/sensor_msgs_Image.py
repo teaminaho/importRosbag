@@ -28,7 +28,7 @@ http://docs.ros.org/api/sensor_msgs/html/msg/Image.html
 from tqdm import tqdm
 import numpy as np
 
-from .common import unpackRosString, unpackRosUint32, unpackRosUint16, unpackRosUint8, unpackRosTimestamp
+from .common import unpackRosString, unpackRosUint32, unpackRosUint8, unpackRosTimestamp
 
 
 def importTopic(msgs, **kwargs):

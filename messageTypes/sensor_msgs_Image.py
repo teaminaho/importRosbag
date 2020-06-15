@@ -29,7 +29,7 @@ from tqdm import tqdm
 import numpy as np
 import pdb
 
-from .common import unpackRosString, unpackRosUint32, unpackRosUint8, unpackRosUint16, unpackRosTimestamp
+from .common import unpackRosString, unpackRosUint32, unpackRosUint8, unpackRosTimestamp
 
 
 def importTopic(msgs, **kwargs):
@@ -56,7 +56,6 @@ def importTopic(msgs, **kwargs):
         width, ptr = unpackRosUint32(data, ptr)
         fmtString, ptr = unpackRosString(data, ptr)
         isBigendian, ptr = unpackRosUint8(data, ptr)
-        isBigendian, ptr = unpackRosUint16(data, ptr)
         if isBigendian:
             print('data is bigendian, but it doesn''t matter')
         step, ptr = unpackRosUint32(data, ptr)  # not used
