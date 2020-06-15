@@ -43,10 +43,6 @@ def unpackRosUint32(data, ptr):
     return unpack('=L', data[ptr:ptr+4])[0], ptr+4
 
 
-def unpackRosUint16(data, ptr):
-    return unpack('=H', data[ptr:ptr+2])[0], ptr+2
-
-
 def unpackRosUint8(data, ptr):
     return unpack('=B', data[ptr:ptr+1])[0], ptr+1
 

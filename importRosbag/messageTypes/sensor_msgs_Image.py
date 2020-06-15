@@ -55,7 +55,6 @@ def importTopic(msgs, **kwargs):
         width, ptr = unpackRosUint32(data, ptr)
         fmtString, ptr = unpackRosString(data, ptr)
         isBigendian, ptr = unpackRosUint8(data, ptr)
-        #_, ptr = unpackRosUint16(data, ptr)
         if isBigendian:
             print('data is bigendian, but it doesn''t matter')
         step, ptr = unpackRosUint32(data, ptr)  # not used
