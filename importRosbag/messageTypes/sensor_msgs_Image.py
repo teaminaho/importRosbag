@@ -23,12 +23,13 @@ This function imports the ros message type defined at:
 http://docs.ros.org/api/sensor_msgs/html/msg/Image.html
 """
 
-#%%
+# %%
 
 from tqdm import tqdm
 import numpy as np
 
 from .common import unpackRosString, unpackRosUint32, unpackRosUint8, unpackRosTimestamp
+
 
 def importTopic(msgs, **kwargs):
     '''
@@ -42,7 +43,7 @@ def importTopic(msgs, **kwargs):
     for idx, msg in enumerate(tqdm(msgs, position=0, leave=True)):
         if sizeOfArray <= idx:
             tsAll = np.append(tsAll, np.zeros((sizeOfArray), dtype=np.float64))
-            sizeOfArray *= 2            
+            sizeOfArray *= 2
         data = msg['data']
         #seq = unpack('=L', data[0:4])[0]
         if kwargs.get('useRosMsgTimestamps', False):
@@ -55,23 +56,23 @@ def importTopic(msgs, **kwargs):
         fmtString, ptr = unpackRosString(data, ptr)
         isBigendian, ptr = unpackRosUint8(data, ptr)
         if isBigendian:
-            print('data is bigendian, but it doesn''t matter')            
-        step, ptr = unpackRosUint32(data, ptr) # not used
+            print('data is bigendian, but it doesn''t matter')
+        step, ptr = unpackRosUint32(data, ptr)  # not used
         arraySize, ptr = unpackRosUint32(data, ptr)
         # assert arraySize == height*width
-        
+
         # The pain of writing this scetion will continue to increase until it
         # matches this reference implementation:
         # http://docs.ros.org/jade/api/sensor_msgs/html/image__encodings_8h_source.html
         if fmtString in ['mono8', '8UC1']:
-            frameData = np.frombuffer(data[ptr:ptr+height*width],np.uint8)
+            frameData = np.frombuffer(data[ptr:ptr+height*width], np.uint8)
             depth = 1
         elif fmtString == '32FC1':
-            frameData = np.frombuffer(data[ptr:ptr+height*width*4],np.float32)
+            frameData = np.frombuffer(data[ptr:ptr+height*width*4], np.float32)
             depth = 1
         elif fmtString == 'bgr8':
-            frameData = np.frombuffer(data[ptr:ptr+height*width*3],np.uint8)
-            depth = 3 
+            frameData = np.frombuffer(data[ptr:ptr+height*width*3], np.uint8)
+            depth = 3
         else:
             print('image format not supported:' + fmtString)
             return None
@@ -79,7 +80,7 @@ def importTopic(msgs, **kwargs):
             frameData = frameData.reshape(height, width, depth)
         else:
             frameData = frameData.reshape(height, width)
-            
+
         framesAll.append(frameData)
     numEvents = idx + 1
     # Crop arrays to number of events

@@ -16,10 +16,11 @@ Intended as part of importRosbag.
 
 """
 
-#%%
+# %%
 
 from struct import unpack
 import numpy as np
+
 
 def unpackHeader(headerLen, headerBytes):
     fields = {}
@@ -27,21 +28,28 @@ def unpackHeader(headerLen, headerBytes):
     while ptr < headerLen:
         fieldLen = unpack('=l', headerBytes[ptr:ptr+4])[0]
         ptr += 4
-        #print(fieldLen)
+        # print(fieldLen)
         field = headerBytes[ptr:ptr+fieldLen]
         ptr += fieldLen
-        #print(field)
+        # print(field)
         fieldSplit = field.find(b'\x3d')
         fieldName = field[:fieldSplit].decode("utf-8")
         fieldValue = field[fieldSplit+1:]
         fields[fieldName] = fieldValue
     return fields
 
+
 def unpackRosUint32(data, ptr):
     return unpack('=L', data[ptr:ptr+4])[0], ptr+4
 
+
+def unpackRosUint16(data, ptr):
+    return unpack('=H', data[ptr:ptr+2])[0], ptr+2
+
+
 def unpackRosUint8(data, ptr):
     return unpack('=B', data[ptr:ptr+1])[0], ptr+1
+
 
 def unpackRosString(data, ptr):
     stringLen = unpack('=L', data[ptr:ptr+4])[0]
@@ -53,16 +61,20 @@ def unpackRosString(data, ptr):
     ptr += stringLen
     return outStr, ptr
 
+
 def unpackRosFloat64Array(data, num, ptr):
-    return np.frombuffer(data[ptr:ptr+num*8], dtype=np.float64), ptr+num*8 
-    
+    return np.frombuffer(data[ptr:ptr+num*8], dtype=np.float64), ptr+num*8
+
+
 def unpackRosFloat32Array(data, num, ptr):
-    return np.frombuffer(data[ptr:ptr+num*4], dtype=np.float32), ptr+num*4 
-    
+    return np.frombuffer(data[ptr:ptr+num*4], dtype=np.float32), ptr+num*4
+
+
 def unpackRosFloat32(data, ptr):
-    return unpack('=f', data[ptr:ptr+4])[0], ptr+4 
-    
+    return unpack('=f', data[ptr:ptr+4])[0], ptr+4
+
+
 def unpackRosTimestamp(data, ptr):
     timeS, timeNs = unpack('=LL', data[ptr:ptr+8])
-    timeFloat = np.float64(timeS)+np.float64(timeNs)*0.000000001 
+    timeFloat = np.float64(timeS)+np.float64(timeNs)*0.000000001
     return timeFloat, ptr+8
