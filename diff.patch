@@ -1,0 +1,81 @@
+diff --git a/__init__.py b/importRosbag/__init__.py
+similarity index 100%
+rename from __init__.py
+rename to importRosbag/__init__.py
+diff --git a/importRosbag.py b/importRosbag/importRosbag.py
+similarity index 100%
+rename from importRosbag.py
+rename to importRosbag/importRosbag.py
+diff --git a/messageTypes/common.py b/importRosbag/messageTypes/common.py
+similarity index 100%
+rename from messageTypes/common.py
+rename to importRosbag/messageTypes/common.py
+diff --git a/messageTypes/dvs_msgs_EventArray.py b/importRosbag/messageTypes/dvs_msgs_EventArray.py
+similarity index 100%
+rename from messageTypes/dvs_msgs_EventArray.py
+rename to importRosbag/messageTypes/dvs_msgs_EventArray.py
+diff --git a/messageTypes/esim_msgs_OpticFlow.py b/importRosbag/messageTypes/esim_msgs_OpticFlow.py
+similarity index 100%
+rename from messageTypes/esim_msgs_OpticFlow.py
+rename to importRosbag/messageTypes/esim_msgs_OpticFlow.py
+diff --git a/messageTypes/geometry_msgs_PoseStamped.py b/importRosbag/messageTypes/geometry_msgs_PoseStamped.py
+similarity index 100%
+rename from messageTypes/geometry_msgs_PoseStamped.py
+rename to importRosbag/messageTypes/geometry_msgs_PoseStamped.py
+diff --git a/messageTypes/geometry_msgs_Transform.py b/importRosbag/messageTypes/geometry_msgs_Transform.py
+similarity index 100%
+rename from messageTypes/geometry_msgs_Transform.py
+rename to importRosbag/messageTypes/geometry_msgs_Transform.py
+diff --git a/messageTypes/geometry_msgs_TransformStamped.py b/importRosbag/messageTypes/geometry_msgs_TransformStamped.py
+similarity index 100%
+rename from messageTypes/geometry_msgs_TransformStamped.py
+rename to importRosbag/messageTypes/geometry_msgs_TransformStamped.py
+diff --git a/messageTypes/geometry_msgs_TwistStamped.py b/importRosbag/messageTypes/geometry_msgs_TwistStamped.py
+similarity index 100%
+rename from messageTypes/geometry_msgs_TwistStamped.py
+rename to importRosbag/messageTypes/geometry_msgs_TwistStamped.py
+diff --git a/messageTypes/sensor_msgs_CameraInfo.py b/importRosbag/messageTypes/sensor_msgs_CameraInfo.py
+similarity index 100%
+rename from messageTypes/sensor_msgs_CameraInfo.py
+rename to importRosbag/messageTypes/sensor_msgs_CameraInfo.py
+diff --git a/messageTypes/sensor_msgs_Image.py b/importRosbag/messageTypes/sensor_msgs_Image.py
+similarity index 100%
+rename from messageTypes/sensor_msgs_Image.py
+rename to importRosbag/messageTypes/sensor_msgs_Image.py
+diff --git a/messageTypes/sensor_msgs_Imu.py b/importRosbag/messageTypes/sensor_msgs_Imu.py
+similarity index 100%
+rename from messageTypes/sensor_msgs_Imu.py
+rename to importRosbag/messageTypes/sensor_msgs_Imu.py
+diff --git a/messageTypes/sensor_msgs_PointCloud2.py b/importRosbag/messageTypes/sensor_msgs_PointCloud2.py
+similarity index 100%
+rename from messageTypes/sensor_msgs_PointCloud2.py
+rename to importRosbag/messageTypes/sensor_msgs_PointCloud2.py
+diff --git a/messageTypes/tf_tfMessage.py b/importRosbag/messageTypes/tf_tfMessage.py
+similarity index 100%
+rename from messageTypes/tf_tfMessage.py
+rename to importRosbag/messageTypes/tf_tfMessage.py
+diff --git a/setup.py b/setup.py
+new file mode 100644
+index 0000000..fb3d997
+--- /dev/null
++++ b/setup.py
+@@ -0,0 +1,19 @@
++# Always prefer setuptools over distutils
++from setuptools import setup, find_packages
++# To use a consistent encoding
++from codecs import open
++from os import path
++
++here = path.abspath(path.dirname(__file__))
++
++# Get the long description from the README file
++with open(path.join(here, 'README.md'), encoding='utf-8') as f:
++    long_description = f.read()
++
++setup(
++    name = "importRosbag",
++    version = "0.1.0",
++    author = "Sim Bamford",
++    description = ("Standalone rosbag loader for python3"),
++    long_description=long_description,
++)
